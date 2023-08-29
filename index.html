@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/popup.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div>txt文件：<input id="file" type="file"></div>
+        <div>每行字数：<input type="number" min="1" id="page_size"><button id="page_size_btn">保存</button></div>
+        <div>跳转行数：<input type="number" min="1" id="current_page"><button id="current_page_btn">保存</button></div>
+        <div>显示类型：<select name="clg_type" id="clg_type">
+                <option>info</option>
+                <option>warn</option>
+                <option>error</option>
+            </select><button id="clg_type_btn">保存</button></div>
+        <div>文字颜色：<input type="color" id="color"><button id="color_btn">保存</button></div>
+        <div>说明：F12打开控制台，在任何网页上按下以下按键，即可在控制台上看到txt内容</div>
+        <table border="1" summary="使用说明">
+            <thead>
+                <tr>
+                    <td>按键</td>
+                    <td>说明</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>[</td>
+                    <td>上一行</td>
+                </tr>
+                <tr>
+                    <td>]</td>
+                    <td>下一行</td>
+                </tr>
+                <tr>
+                    <td>=</td>
+                    <td>老板键，隐藏</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</body>
+
+</html>
