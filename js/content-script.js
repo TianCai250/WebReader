@@ -5,8 +5,8 @@ window.onload = () => {
     },
     eventMonitor: function () {
       document.addEventListener("keydown", (e) => {
-        switch (e.key) {
-          case "[":
+        switch (e.code) {
+          case "BracketLeft":
             chrome.runtime.sendMessage({
               type: "book_operation",
               data: {
@@ -14,7 +14,7 @@ window.onload = () => {
               },
             });
             break;
-          case "]":
+          case "BracketRight":
             chrome.runtime.sendMessage({
               type: "book_operation",
               data: {
@@ -22,14 +22,13 @@ window.onload = () => {
               },
             });
             break;
-          case "=":
+          case "Equal":
             console.clear();
             break;
         }
       });
 
       chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        console.log("content-script", message);
         if (message.type === "render_book") {
           console.clear();
           switch (message.data.clg_type) {

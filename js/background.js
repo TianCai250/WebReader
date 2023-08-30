@@ -24,18 +24,24 @@ const Activity = {
     },
   },
   init() {
-    chrome.storage.sync.get("book", (res) => {
-      if (!res) {
-        Activity.eventCenter.syncStorage();
-      } else {
+    chrome.storage.local.get("book", (res) => {
+      if (res && res.book) {
         Activity.data.book = res.book;
+      } else {
+        Activity.eventCenter.syncStorage();
+      }
+    });
+    chrome.storage.local.get("content", (res) => {
+      if (res && res.content) {
+        Activity.data.content = res.content;
+      } else {
+        chrome.storage.local.set({ content: Activity.data.content });
       }
     });
     Activity.eventMonitor();
   },
   eventMonitor() {
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-      console.log("background", message);
       if (message.type === "book_operation") {
         switch (message.data.key) {
           case "[":
@@ -47,6 +53,7 @@ const Activity = {
         }
       } else if (message.type === "content") {
         Activity.data.content = message.data.content;
+        chrome.storage.local.set({ content: Activity.data.content });
         Activity.data.book.size = Activity.data.content.length;
         Activity.data.book.page = Math.ceil(
           Activity.data.book.size / Activity.data.book.page_size
@@ -75,8 +82,9 @@ const Activity = {
       sendResponse("ok");
     });
     chrome.storage.onChanged.addListener(function (changes, namespace) {
-      console.log("改变", changes.book.newValue);
-      Activity.data.book = changes.book.newValue;
+      if (changes.book) {
+        Activity.data.book = changes.book.newValue;
+      }
     });
   },
   eventCenter: {
@@ -93,7 +101,7 @@ const Activity = {
     },
     // 同步设置
     syncStorage() {
-      chrome.storage.sync.set({ book: Activity.data.book });
+      chrome.storage.local.set({ book: Activity.data.book });
     },
     getPrePage() {
       if (Activity.data.book.current_page <= 1) {
@@ -123,7 +131,6 @@ const Activity = {
           Activity.data.book.current_page.toString() +
           "/" +
           Activity.data.book.page.toString();
-        console.log("渲染", start, end, page_info);
         Activity.eventCenter.sendData({
           type: "render_book",
           data: {
