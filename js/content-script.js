@@ -58,6 +58,7 @@ window.onload = () => {
               );
           }
         }
+        sendResponse("ok");
       });
     },
   };

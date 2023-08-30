@@ -27,6 +27,8 @@ const Activity = {
     chrome.storage.sync.get("book", (res) => {
       if (!res) {
         Activity.eventCenter.syncStorage();
+      } else {
+        Activity.data.book = res.book;
       }
     });
     Activity.eventMonitor();
@@ -70,6 +72,7 @@ const Activity = {
         Activity.eventCenter.syncStorage();
         Activity.eventCenter.renderBook();
       }
+      sendResponse("ok");
     });
     chrome.storage.onChanged.addListener(function (changes, namespace) {
       console.log("改变", changes.book.newValue);
