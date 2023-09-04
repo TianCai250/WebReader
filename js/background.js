@@ -25,6 +25,7 @@ const Activity = {
   },
   init() {
     chrome.storage.local.get("book", (res) => {
+      console.log("初始化", res);
       if (res && res.book) {
         Activity.data.book = res.book;
       } else {
@@ -78,6 +79,15 @@ const Activity = {
         }
         Activity.eventCenter.syncStorage();
         Activity.eventCenter.renderBook();
+      } else if (message.type === "key_position") {
+        // 查询关键词位置
+        const index = Activity.data.content.indexOf(message.data.keywords);
+        let line = -1;
+        if (~index) {
+          line = Math.floor(index / Activity.data.book.page_size) + 1;
+        }
+        sendResponse(line);
+        return;
       }
       sendResponse("ok");
     });
