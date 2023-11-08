@@ -26,7 +26,7 @@ window.onload = () => {
         const file = e.target.files[0];
         if (file) {
           var reader = new FileReader();
-          reader.readAsText(file);
+          reader.readAsText(file, 'GB2312');
           reader.onload = function (oFREvent) {
             const txt = oFREvent.target.result;
             chrome.runtime.sendMessage({
