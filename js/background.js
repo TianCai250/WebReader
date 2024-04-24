@@ -25,7 +25,6 @@ const Activity = {
   },
   init() {
     chrome.storage.local.get("book", (res) => {
-      console.log("初始化", res);
       if (res && res.book) {
         Activity.data.book = res.book;
       } else {

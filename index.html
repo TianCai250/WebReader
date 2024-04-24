@@ -7,23 +7,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./js/popup.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 13.333333vw;
+            color: #606266;
+        }
+
+        .container {
+            font-size: 0.32rem;
+            padding: 0.2rem;
+        }
+
+        .form_item {
+            display: flex;
+            margin-bottom: 0.2rem;
+        }
+
+        .form_label {
+            width: 2rem;
+        }
+
+        .form_content {
+            flex: 1;
+            display: flex;
+        }
+
+        .w100 {
+            width: 100%;
+        }
+
+        .form_btn {
+            width: 1.5rem;
+            height: 0.6rem;
+            margin-left: 0.1rem;
+        }
+
+        .use_table {
+            width: 100%;
+        }
+
+        input:not([type="file"]),
+        select {
+            height: 0.6rem;
+            width: 100%;
+            -webkit-appearance: none;
+            color: #606266;
+            font-size: inherit;
+            line-height: 0.6rem;
+            padding: 0 10px;
+            outline: none;
+            border: 1px solid #dcdfe6;
+            background: none;
+            border-radius: 4px;
+        }
+
+        button {
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        select {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <div>txt文件：<input id="file" type="file"></div>
-        <div>每行字数：<input type="number" min="1" id="page_size"><button id="page_size_btn">保存</button></div>
-        <div>跳转行数：<input type="number" min="1" id="current_page"><button id="current_page_btn">保存</button></div>
-        <div>显示类型：<select name="clg_type" id="clg_type">
-                <option>info</option>
-                <option>warn</option>
-                <option>error</option>
-            </select><button id="clg_type_btn">保存</button></div>
-        <div>文字颜色：<input type="color" id="color"><button id="color_btn">保存</button></div>
-        <div>关键字查询：<input id="key_check"><button id="key_check_btn">查询</button></div>
-        <div>关键字所在行数：<span id="key_position" style="color: red;"></span><button style="display: none;" id="key_position_jump_btn">跳转</button></div>
+        <div class="form_item">
+            <div class="form_label">txt文件：</div>
+            <div class="form_content">
+                <input class="w100" id="file" type="file">
+            </div>
+        </div>
+        <div class="form_item">
+            <div class="form_label">每行字数：</div>
+            <div class="form_content">
+                <input type="number" min="1" id="page_size" placeholder="默认50"><button class="form_btn"
+                    id="page_size_btn">保存</button>
+            </div>
+        </div>
+        <div class="form_item">
+            <div class="form_label">跳转行数：</div>
+            <div class="form_content">
+                <input type="number" min="1" id="current_page"><button class="form_btn"
+                    id="current_page_btn">保存</button>
+            </div>
+        </div>
+        <div class="form_item">
+            <div class="form_label">显示类型：</div>
+            <div class="form_content">
+                <select name="clg_type" id="clg_type">
+                    <option>info</option>
+                    <option>warn</option>
+                    <option>error</option>
+                </select><button class="form_btn" id="clg_type_btn">保存</button>
+            </div>
+        </div>
+        <div class="form_item">
+            <div class="form_label">文字颜色：</div>
+            <div class="form_content">
+                <input type="color" id="color"><button class="form_btn" id="color_btn">保存</button>
+            </div>
+        </div>
+        <div class="form_item">
+            <div class="form_label">关键字查询：</div>
+            <div class="form_content">
+                <input id="key_check"><button class="form_btn" id="key_check_btn">查询</button>
+            </div>
+        </div>
+        <div class="form_item">
+            <div class="form_label" style="width: 3rem">关键字所在行数：</div>
+            <div class="form_content">
+                <span id="key_position" style="width: 100%;color: red;"></span><button class="form_btn"
+                    style="display: none;" id="key_position_jump_btn">跳转</button>
+            </div>
+        </div>
         <div>说明：F12打开控制台，在任何网页上按下以下按键，即可在控制台上看到txt内容</div>
-        <table border="1" summary="使用说明">
+        <table class="use_table" border="1" summary="使用说明">
             <thead>
                 <tr>
                     <td>按键</td>
@@ -44,7 +151,6 @@
                     <td>老板键，隐藏</td>
                 </tr>
             </tbody>
-
         </table>
     </div>
 </body>
