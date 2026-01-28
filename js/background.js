@@ -140,6 +140,11 @@ const Activity = {
           Activity.data.book.current_page.toString() +
           "/" +
           Activity.data.book.page.toString();
+        // 阅读进度
+        page_info += `  ${(
+          (Activity.data.book.current_page / Activity.data.book.page) *
+          100
+        ).toFixed(2)}%`;
         Activity.eventCenter.sendData({
           type: "render_book",
           data: {
